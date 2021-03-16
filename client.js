@@ -40,5 +40,5 @@ window.addEventListener("DOMContentLoaded", function() {
 document.body.addEventListener('click', clicked, true); 
 
 function clicked(){
-  window.location = "https://mizu-cmd.github.io"
+  window.location = "public/index.html"
 }
