@@ -5,6 +5,18 @@
   font-family: helvetica;
 }
 
+body {
+  cursor: url(http://www.rw-designer.com/cursor-download.php?id=90885), auto;
+  font-family: "MS Sans Serif";
+  letter-spacing: 0.001em;
+  font-size: 14px;
+  font-smooth: none;
+}
+
+strong {
+  font-weight: bold;  
+}
+
 
 /* JQuery ui icom removal */ 
 .ui-icon { background-image: url("") !important; }
@@ -58,10 +70,10 @@
 }
 
 .startbutton-on {
-  border-top: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid white;
-  border-bottom: 2px solid white;
+  border-top: 2px solid black !important;
+  border-left: 2px solid black !important;
+  border-right: 2px solid white !important;
+  border-bottom: 2px solid white !important;
 }
 
 #menu {
@@ -255,33 +267,7 @@
   margin-bottom: 3px;
 }
 
-.close {
-  background-image: url("https://res.cloudinary.com/penry/image/upload/q_100/v1475278244/close_jw5cay.png");
-  background-size: auto 100%;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  }
-
-.maximise {
-  background-image: url("https://res.cloudinary.com/penry/image/upload/q_100/v1475278244/maximise_anhbyl.png");
-  background-size: auto 100%;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  }
-
-.minimise {
-  background-image: url("https://res.cloudinary.com/penry/image/upload/q_100/v1475278244/minimise_p60zap.png");
-  background-size: auto 100%;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  }
-
-
 .window-content {
-  margin-top: 2px;
-  border: 2px solid #808080;
-  border-bottom: 2px solid white;
-  border-right: 2px solid white;
   height: calc( 100% - 28px);
 
 }
@@ -326,4 +312,32 @@
 }
 
 
+.desktop-icons .desktop-icon {
+  width: 115px;
+  height: 100px;
+  color: #fff;
+  text-align: center;
+  background: no-repeat center top;
+  padding-top: 55px;
+  margin: 10px;
+}
+.desktop-icons .desktop-icon.my-computer {
+  background-image: url(https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png);
+}
+.desktop-icons .desktop-icon.my-documents {
+  background-image: url(https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png);
+}
+.desktop-icons .desktop-icon.network {
+  background-image: url(https://win98icons.alexmeub.com/icons/png/network_cool_two_pcs-0.png);
+}
+.desktop-icons .desktop-icon.trash-empty {
+  background-image: url(https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-4.png);
+}
 
+.window-header-icon {
+  height: 20px; 
+  margin-left: 3px;
+  margin-top: 3px;
+  display: inline-block;
+  float: left;
+}

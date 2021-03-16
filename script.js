@@ -45,22 +45,24 @@ var openWindow = function(id) {
 var createProgram = function(id, title, imgUrl, url) {
   $("#startbutton").after("<span class='program' id='start-bar-" + id + "' >" + title + "</span>");
   $("#start-bar-" + id).css('background-image', 'url(' + imgUrl + ')');
-  var content = '<div class="window ui-widget" id="' + id + '">' +
-    '<div class="window-inner">' +
-    '<div class="window-header"><img class="window-header-icon" src="' + imgUrl + '" />' +
-    '<p>' + title + '</p>' +
-    ' <div class="window-icon close" ></div>' +
-    ' <div class="window-icon maximise" ></div>' +
-    ' <div class="window-icon minimise" ></div>' +
-    '</div>' +
-    '<div class="window-content" id="' + id + '-content">' +
-    '<iframe width="100%" height="100%" src="' + url + '" frameborder="0" allowfullscreen></iframe>'
-  '</div>' +
-  '</div>' +
-  '</div>';
+  var content = '<div class="window" id="' + id + '"style="width: 350px; height: 250px">' +
+  '<div class="title-bar">'+
+  '<img class="window-header-icon" src="' + imgUrl + '" />' +
+    '<div class="title-bar-text">'+title+'</div>'+
+    '<div class="title-bar-controls">'+
+      '<button aria-label="Minimize" class="minimise"></button>'+
+      '<button aria-label="Maximize" class="maximise"></button>'+
+      '<button aria-label="Close" class="close"></button>'+
+    '</div>'+
+  '</div>'+
+  '<div class="window-content" id="' + id + '-content">' +
+    '<iframe width="100%" height="100%" src="' + url + '" frameborder="0" allowfullscreen></iframe>'+
+    '</div>'+
+  '</div>'+
+'</div>'
   $(".desktop").after(content);
   $(".window").draggable({
-    handle: ".window-header",
+    handle: ".title-bar",
     cursor: "move",
     containment: "window",
     stack: ".window"
@@ -76,6 +78,52 @@ var createProgram = function(id, title, imgUrl, url) {
   });
   openWindow(id);
 };
+
+var createTextProgram = function(id, title, text) {
+  $("#startbutton").after("<span class='program' id='start-bar-" + id + "' >" + title + "</span>");
+  $("#start-bar-" + id).css('background-image', 'url(https://win98icons.alexmeub.com/icons/png/notepad-3.png)');
+  var content = '<div class="window" id="' + id + '"style="width: 350px; height: 250px">' +
+  '<div class="title-bar">'+
+  '<img class="window-header-icon" src="https://win98icons.alexmeub.com/icons/png/notepad-3.png" />' +
+    '<div class="title-bar-text" style="float:left">'+title+' - Notepad</div>'+
+    '<div class="title-bar-controls">'+
+      '<button aria-label="Minimize" class="minimise"></button>'+
+      '<button aria-label="Maximize" class="maximise"></button>'+
+      '<button aria-label="Close" class="close"></button>'+
+    '</div>'+
+  '</div>'+
+  '<div class="window-content" id="' + id + '-content" style="height: calc(100% - 52px) !important;">' +
+  '<div style=" margin-top: 3px;margin-bottom: 3px;font-size: 15px;">'+
+  '<span style="margin-left: 5px;"><span style="text-decoration:underline;">F</span>ile</span>'+
+  '<span style="margin-left: 15px;"><span style="text-decoration:underline;">E</span>dit</span>'+
+  '<span style="margin-left: 15px;"><span style="text-decoration:underline;">S</span>earch</span>'+
+  '<span style="margin-left: 15px;"><span style="text-decoration:underline;">H</span>elp</span>'+
+  '</div>'+
+  '<div class="field-row-stacked" style="width: 100%; height:100%">'+
+    '<textarea readonly id="text20" rows="8" style="width: 100%; height: 100%; resize: none; box-sizing:border-box; font-size: 15px">'+text+'</textarea>'+
+  '</div>'
+    '</div>'+
+  '</div>'+
+'</div>'
+  $(".desktop").after(content);
+  $(".window").draggable({
+    handle: ".title-bar",
+    cursor: "move",
+    containment: "window",
+    stack: ".window"
+  });
+  $(".window").resizable({
+    handles: "n, e, s, w, ne, se, sw, nw",
+    minHeight: 250,
+    minWidth: 350
+  });
+  // Prevent windows from moving on sibling being resized or closed
+  $(".window").css({
+    position: "absolute"
+  });
+  openWindow(id);
+};
+
 
 var isWindowMaximised = function(id) {
   var targetId = $("#" + id);
@@ -248,6 +296,7 @@ $(document).ready(function() {
     var target = $(this).attr('id');
     var z = getTopZIndex();
     $("#" + target).css("z-index", z + 1);
+    $(".program","#" + target).toggleClass("startbutton-on")
   });
 
   $("#menu").on("click", ".launch", function(event) {
@@ -258,6 +307,23 @@ $(document).ready(function() {
     var url = $(this).data("url");
     if (!isWindowOpen(targetId)) {
       createProgram(targetId, title, imgUrl, url);
+      $('#menu').hide();
+      $("#startbutton").removeClass("startbutton-on");
+    } else {
+      openWindow(targetId);
+      $('#menu').hide();
+      $("#startbutton").removeClass("startbutton-on");
+      console.log("program already exists... opening window")
+    }
+  });
+
+  $("#menu").on("click", ".launch-text", function(event) {
+    console.log($(this).data("launch"));
+    var targetId = $(this).data("launch");
+    var title = $(this).data("title");
+    var text = $(this).data("text")
+    if (!isWindowOpen(targetId)) {
+      createTextProgram(targetId, title, text);
       $('#menu').hide();
       $("#startbutton").removeClass("startbutton-on");
     } else {
