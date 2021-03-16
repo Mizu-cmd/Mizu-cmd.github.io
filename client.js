@@ -40,5 +40,5 @@ window.addEventListener("DOMContentLoaded", function() {
 document.body.addEventListener('click', clicked, true); 
 
 function clicked(){
-  window.location = "public/public.html"
+  window.location = "pages/home.html"
 }
